@@ -1,0 +1,36 @@
+version: '3.9'
+services:
+  testlink:
+    image: imtnd/testlink:latest
+    container_name: testlink
+    ports:
+      - "80:80"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=testlink
+      - MYSQL_USER=testlink
+      - MYSQL_PASSWORD=testlink
+      - SMTP_HOST=your_smtp_host
+      - SMTP_PORT=your_smtp_port
+      - SMTP_TLS=your_smtp_tls
+      - SMTP_USER=your_smtp_username
+      - SMTP_PASS=your_smtp_password
+      - MAIL_SENDER=your_sender_email
+    volumes:
+      - ./testlink-data:/opt/bitnami/testlink
+
+  db:
+    image: mysql:5.7.25
+    container_name: testlink-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'testlink'
+      MYSQL_USER: 'suscribete'
+      MYSQL_PASSWORD: 'Recuerda_Suscribirte'
+      MYSQL_ROOT_PASSWORD: 'pwd_root'
+    volumes:
+      - ./sql-data/db:/var/lib/mysql
+
+volumes:
+  testlink_data:
+  testlink_db_data:
